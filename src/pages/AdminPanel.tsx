@@ -1,59 +1,37 @@
 import { useNavigate } from 'react-router-dom';
 import { useSimulation } from '../context/SimulationContext';
-import { useAuth } from '../context/AuthContext';
 import AdminToggle from '../components/AdminToggle';
 import AdminSlider from '../components/AdminSlider';
-import { Home, FileText, LogOut } from 'lucide-react';
+import { Home, FileText } from 'lucide-react';
 
 export default function AdminPanel() {
   const navigate = useNavigate();
   const { adminState, updateAdminState, advanceDay } = useSimulation();
-  const { user, signOut, sessionId } = useAuth();
 
   const handleNextDay = () => {
     advanceDay();
     navigate('/report');
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
       <nav className="bg-gray-900/80 backdrop-blur-sm border-b border-cyan-500/30 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4 flex-1">
+          <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-2xl">
               👔
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-                Algorithm Control Room
-              </h1>
-              {sessionId && (
-                <p className="text-xs text-cyan-300">Session Code: {sessionId}</p>
-              )}
-            </div>
+            <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              President Trump's Algorithm Control Room
+            </h1>
           </div>
-          <div className="flex items-center gap-4">
-            {user && (
-              <span className="text-gray-400 text-sm">{user.email}</span>
-            )}
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-            >
-              <Home className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-2 text-gray-300 hover:text-red-400 transition-colors"
-            >
-              <LogOut className="w-5 h-5" />
-            </button>
-          </div>
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+          >
+            <Home className="w-5 h-5" />
+            Home
+          </button>
         </div>
       </nav>
 
